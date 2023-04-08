@@ -25,7 +25,7 @@ public class HomeController  {
 //        return "Its Working...";
 //    }
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public String home(Model model){
         model.addAttribute("title", "Home - Smart Contact Manager");
         return "home";
@@ -34,5 +34,11 @@ public class HomeController  {
     public String about(Model model){
         model.addAttribute("title", "About - Smart Contact Manager");
         return "about";
+    }
+
+    @RequestMapping("/signup")
+    public String signup(Model model){
+        model.addAttribute("title", "Register - Smart Contact Manager");
+        return "signup";
     }
 }

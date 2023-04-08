@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SmartContactManager" />
+        <module name="ContactManager" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -15,6 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ContactManager" options="-parameters" />
       <module name="SmartContactManager" options="-parameters" />
     </option>
   </component>

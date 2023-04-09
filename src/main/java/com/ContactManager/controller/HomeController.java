@@ -6,9 +6,12 @@ import com.ContactManager.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class HomeController  {
@@ -46,8 +49,9 @@ public class HomeController  {
 
     // Handler for registering new users
     @RequestMapping(value = "/do_register", method = RequestMethod.POST)
-    public String register(
-            @ModelAttribute("user") User user,
+    public String registerUser(
+            @Valid @ModelAttribute("user") User user,
+            BindingResult bindingResult,
             @RequestParam(value = "agreement",
             defaultValue = "false") boolean agreement,
             Model model,
@@ -58,6 +62,12 @@ public class HomeController  {
             if(!agreement){
                 System.out.println("You have not agreed the terms and conditions");
                 throw new Exception("You have not agreed the terms and conditions");
+            }
+
+            if(bindingResult.hasErrors()){
+                System.out.println("Error: "+ bindingResult.toString());
+                model.addAttribute("user", user);
+                return "signup";
             }
 
             user.setRole("ROLE_USER");

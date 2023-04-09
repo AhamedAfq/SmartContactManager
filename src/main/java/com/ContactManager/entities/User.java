@@ -95,4 +95,19 @@ public class User {
     public void setContact(List<Contact> contact) {
         this.contactList = contact;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", status=" + status +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", about='" + about + '\'' +
+                ", contactList=" + contactList +
+                '}';
+    }
 }

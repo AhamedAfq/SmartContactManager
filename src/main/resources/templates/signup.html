@@ -12,50 +12,75 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="my-card mt-2">
+                <div class="my-card mt-1">
+
+                    <!--  Alert  -->
+                    <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+                        <p class="text-center" th:text="${session.message.content}"></p>
+                        <!--   Want to display the message only once. Hence inorder to remove-->
+
+                        <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+                    </div>
 
                     <div class="container text-center">
                         <img style="width: 100px; " src="" th:src="@{/img/RegisterIcon.png}" alt="">
                     </div>
                     <h1 class="text-center">Register Here </h1>
-                    <form action="" th:action="@{/do_register}" method="post">
+                    <form action="" th:action="@{/do_register}" method="post" th:object="${user}">
 
                         <!--   Name field   -->
                         <div class="form-group">
-                            <label for="name_field">Your Name</label>
+                            <label for="name_field">Name</label>
                             <input type="text"
+                                   name="name"
                                    class="form-control"
                                    id="name_field"
                                    aria-describedby="emailHelp"
-                                   placeholder="Enter here"
+                                   placeholder="Enter your name"
+                                   th:value="${user.name}"
                                    required>
                         </div>
 
                         <!--   Email field   -->
                         <div class="form-group">
-                            <label for="email_field">Your Name</label>
+                            <label for="email_field">Email</label>
                             <input type="email"
+                                   name="email"
                                    class="form-control"
                                    id="email_field"
                                    aria-describedby="emailHelp"
-                                   placeholder="Enter here"
+                                   placeholder="Enter your email"
+                                   th:value="${user.email}"
                                    required>
                         </div>
 
                         <!--   Password field   -->
                         <div class="form-group">
-                            <label for="password_field">Your Password</label>
+                            <label for="password_field">Password</label>
                             <input type="password"
+                                   name="password"
                                    class="form-control"
                                    id="password_field"
                                    aria-describedby="emailHelp"
-                                   placeholder="Enter here"
+                                   placeholder="Enter your password"
                                    required>
                         </div>
 
                         <!--   User about field   -->
                         <div class="form-group">
-                            <textarea placeholder="Enter something about yourself" rows="10" class="form-control"></textarea>
+                            <textarea name="about" th:text ="${user.about}" placeholder="Enter something about yourself" rows="10" class="form-control"></textarea>
+                        </div>
+
+                        <!--   Terms and conditions -->
+                        <div class="form-group form-check text-center">
+                            
+                            <input type="checkbox"
+                                   name="agreement"
+                                   class="form-check-input"
+                                   id="agreement"/>
+
+                            <label for="agreement">Accept terms and conditions</label>
+
                         </div>
 
                         <div class="container text-center">

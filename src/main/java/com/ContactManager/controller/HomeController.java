@@ -2,12 +2,13 @@ package com.ContactManager.controller;
 
 import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.User;
+import com.ContactManager.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class HomeController  {
@@ -39,6 +40,46 @@ public class HomeController  {
     @RequestMapping("/signup")
     public String signup(Model model){
         model.addAttribute("title", "Register - Smart Contact Manager");
+        model.addAttribute("user",new User());
         return "signup";
+    }
+
+    // Handler for registering new users
+    @RequestMapping(value = "/do_register", method = RequestMethod.POST)
+    public String register(
+            @ModelAttribute("user") User user,
+            @RequestParam(value = "agreement",
+            defaultValue = "false") boolean agreement,
+            Model model,
+            HttpSession session){
+
+        try {
+
+            if(!agreement){
+                System.out.println("You have not agreed the terms and conditions");
+                throw new Exception("You have not agreed the terms and conditions");
+            }
+
+            user.setRole("ROLE_USER");
+            user.setStatus(true);
+
+            System.out.println("User: "+ user);
+            System.out.println("Agreement: "+ agreement);
+
+            User result = this.userRepository.save(user);
+
+            model.addAttribute("user", new User());
+            session.setAttribute("message", new Message("Registration is successful !!!", "alert-success"));
+            return "signup";
+
+        }catch (Exception exception){
+
+            exception.printStackTrace();
+
+            //To show the error to the User
+            model.addAttribute("user", user);
+            session.setAttribute("message", new Message("Something went wrong !!! " + exception.getMessage(), "alert-danger"));
+            return "signup";
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.User;
 import com.ContactManager.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,9 @@ public class HomeController  {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 //    @GetMapping("/test")
 //    @ResponseBody
@@ -72,6 +76,8 @@ public class HomeController  {
 
             user.setRole("ROLE_USER");
             user.setStatus(true);
+            user.setImageUrl("default.png ");
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
             System.out.println("User: "+ user);
             System.out.println("Agreement: "+ agreement);

@@ -8,9 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.naming.Binding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -49,6 +51,12 @@ public class HomeController  {
         model.addAttribute("title", "Register - Smart Contact Manager");
         model.addAttribute("user",new User());
         return "signup";
+    }
+
+    @RequestMapping(value = "/signin", method = {RequestMethod.GET, RequestMethod.POST})
+    public String customLogin(Model model){
+        model.addAttribute("title", "Login Page");
+        return "login";
     }
 
     // Handler for registering new users

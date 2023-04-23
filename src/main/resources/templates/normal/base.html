@@ -29,15 +29,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="" tabindex="-1" aria-disabled="true">
+                    <span th:text="${user.name}">
+
+                    </span>
+                </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/signin}" href="" tabindex="-1" aria-disabled="true">Login</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/signup}" tabindex="-1" aria-disabled="true">Signup</a>
+                <a class="nav-link" th:href="@{/logout}" tabindex="-1" aria-disabled="true">Logout</a>
             </li>
 
         </ul>

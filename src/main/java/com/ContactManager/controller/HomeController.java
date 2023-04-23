@@ -53,11 +53,18 @@ public class HomeController  {
         return "signup";
     }
 
+//    I have to add method = {RequestMethod.GET, RequestMethod.POST} to the Request if /signin is my processing url also.
     @RequestMapping(value = "/signin", method = {RequestMethod.GET, RequestMethod.POST})
     public String customLogin(Model model){
         model.addAttribute("title", "Login Page");
         return "login";
     }
+
+//    @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
+//    public String customLoginProcessingUrl(Model model){
+//        model.addAttribute("title", "Login Page");
+//        return "user_dashboard";
+//    }
 
     // Handler for registering new users
     @RequestMapping(value = "/do_register", method = RequestMethod.POST)

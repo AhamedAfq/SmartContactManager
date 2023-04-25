@@ -65,6 +65,7 @@ And that button will be visible through Js. That will be added Later */
   height: 100%;
   position: fixed;
   padding-top: 45px;
+  z-index: 999999999999999999999999;
 }
 
 .sidebar a {

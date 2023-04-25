@@ -5,37 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b66c6b48-5c65-4ca6-b0e3-444a0e475870" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/normal/add_contact_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ContactManager/configuration/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ContactManager/configuration/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ContactManager/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ContactManager/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/normal/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/normal/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/ContactManagerApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/configuration/CustomUserDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/configuration/MyConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/configuration/UserDetailsServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/controller/HomeController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/dao/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/entities/Contact.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/entities/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ContactManager/helper/Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/RegisterIcon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/bannerImage.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/about.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/normal/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/normal/user_dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/signup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ContactManager/ContactManagerApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

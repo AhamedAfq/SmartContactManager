@@ -19,7 +19,7 @@
                           th:object="${contact}"
                           enctype="multipart/form-data"
                           method="post"
-                          th:action="@{user/process-contact}"
+                          th:action="@{process-contact}"
                           class="mt-2">
 
                     <!--  First Name Placeholder -->
@@ -31,7 +31,7 @@
                                     </i>
                                 </div>
                             </div>
-                            <input type="text" id="firstName" name="name" placeholder="Enter name" class="form-control">
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter name" class="form-control">
                         </div>
 
                         <!--  Second Name Placeholder -->

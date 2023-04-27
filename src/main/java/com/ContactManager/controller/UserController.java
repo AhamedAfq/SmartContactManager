@@ -4,13 +4,17 @@ import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
 import com.ContactManager.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
 @Controller
@@ -48,19 +52,38 @@ public class UserController  {
     }
 
     @PostMapping("/process-contact")
-    public String processContact(@ModelAttribute Contact contact, Principal principal){
+    public String processContact(@ModelAttribute Contact contact,
+                                 @RequestParam("profileImage") MultipartFile file,
+                                 Principal principal){
 
-        String name = principal.getName();
-        User user = this.userRepository.getUserByUserName(name);
+        try {
+
+            String name = principal.getName();
+            User user = this.userRepository.getUserByUserName(name);
+
+            if(file.isEmpty()){
+//                File empty message
+                System.out.println("Sry file is empty ...");
+            }else{
+//                File not empty then save the user to contacts
+                contact.setImage(file.getOriginalFilename());
+                File saveFile = new ClassPathResource("/static/img").getFile();
+                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+                Files.copy(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image is uploaded");
+            }
 
 //      Bidirectional Mapping (XX---IMPORTANT---XX)
-        contact.setUsers(user);
-        user.getContact().add(contact);
+            contact.setUsers(user);
+            user.getContact().add(contact);
 
-        this.userRepository.save(user);
-        System.out.println("DATA : " + contact);
-        System.out.println("Contact added to DB");
+            this.userRepository.save(user);
+            System.out.println("DATA : " + contact);
+            System.out.println("Contact added to DB");
 
+        }catch (Exception exception){
+            System.out.println("Error: "+ exception.getMessage());
+        }
         return "normal/add_contact_form";
     }
 }

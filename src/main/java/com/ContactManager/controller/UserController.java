@@ -3,6 +3,7 @@ package com.ContactManager.controller;
 import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
 import com.ContactManager.entities.User;
+import com.ContactManager.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -54,7 +56,8 @@ public class UserController  {
     @PostMapping("/process-contact")
     public String processContact(@ModelAttribute Contact contact,
                                  @RequestParam("profileImage") MultipartFile file,
-                                 Principal principal){
+                                 Principal principal,
+                                 HttpSession session){
 
         try {
 
@@ -80,8 +83,12 @@ public class UserController  {
             this.userRepository.save(user);
             System.out.println("DATA : " + contact);
             System.out.println("Contact added to DB");
+//            Message success
+            session.setAttribute("message", new Message("Your contact is added !!! Add more ...", "success"));
 
         }catch (Exception exception){
+//            Message success
+            session.setAttribute("message", new Message("Something went wrong !!! Try again ...", "danger"));
             System.out.println("Error: "+ exception.getMessage());
         }
         return "normal/add_contact_form";

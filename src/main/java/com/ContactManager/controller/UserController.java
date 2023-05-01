@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -75,6 +76,7 @@ public class UserController  {
             if(file.isEmpty()){
 //                File empty message
                 System.out.println("Sry file is empty ...");
+                contact.setImage("contact.svg");
             }else{
 //                File not empty then save the user to contacts
                 contact.setImage(file.getOriginalFilename());
@@ -125,4 +127,17 @@ public class UserController  {
 
         return "normal/show_contacts";
     }
+
+    @GetMapping("{cId}/contact")
+    public String showUserContactDetail(@PathVariable("cId") Integer cId, Model model){
+        model.addAttribute("title", "User contact");
+        System.out.println("Contact Id: "+cId);
+
+        Optional<Contact> optionalContact = contactRepository.findById(cId);
+        Contact contact = optionalContact.get();
+
+        model.addAttribute("contact", contact);
+        return "normal/contact_detail";
+    }
+
 }

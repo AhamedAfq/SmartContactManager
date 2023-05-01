@@ -97,3 +97,10 @@ And that button will be visible through Js. That will be added Later */
    font-size: 36px;
    cursor: pointer;
 }
+
+.my_profile_picture {
+   width: 35px;
+   height: 35px;
+   object-fit: cover;
+   border-radius: 50%;
+}

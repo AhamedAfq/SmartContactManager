@@ -8,7 +8,7 @@ public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
+    private int contactId;
     private String firstName;
     private String secondName;
     private String work;
@@ -22,12 +22,12 @@ public class Contact {
     private User user;
 
 
-    public int getCustomerId() {
-        return customerId;
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 
     public String getFirstName() {

@@ -1,5 +1,6 @@
 package com.ContactManager.controller;
 
+import com.ContactManager.dao.ContactRepository;
 import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
 import com.ContactManager.entities.User;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -25,6 +27,9 @@ public class UserController  {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ContactRepository contactRepository ;
 
     @ModelAttribute // Common set of code that has run before all the following handlers (or) method to add common data to teh response
     public void addCommonData(Model model, Principal principal){ // Principal return the unique attribute of the Entity
@@ -92,5 +97,22 @@ public class UserController  {
             System.out.println("Error: "+ exception.getMessage());
         }
         return "normal/add_contact_form";
+    }
+
+    @GetMapping("/show_contacts")
+    public String showContacts(Model model, Principal principal){
+        model.addAttribute("title", "Show user contacts");
+
+//        To get the userId
+        String userName = principal.getName();
+        User user = userRepository.getUserByUserName(userName);
+
+//        Easy way of fetching the list of contacts. But I need to implement the pagination later on hence using repository
+//        List<Contact> contact = user.getContact();
+
+        List<Contact> contacts = this.contactRepository.findContactsByUser(user.getId());
+        model.addAttribute("contacts", contacts);
+
+        return "normal/show_contacts";
     }
 }

@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="container">
-                    <button class="btn btn-danger btn-sm">
+                    <button th:onclick="|deleteContact(${contact.contactId})|" class="btn btn-danger btn-sm">
                         Delete
                     </button>
                     <button class="btn btn-primary btn-sm">

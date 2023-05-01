@@ -5,6 +5,7 @@ import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
 import com.ContactManager.entities.User;
 import com.ContactManager.helper.Message;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -147,6 +148,29 @@ public class UserController  {
 //            throw new RuntimeException("This user doesn't have the access to view this contact");
 //        }
         return "normal/contact_detail";
+    }
+
+//    Delete contact handler
+    @GetMapping("/delete/{cId}")
+    public String deleteContact(@PathVariable("cId") Integer cId,
+                                Model model,
+                                HttpSession session){
+
+        Contact contact =this.contactRepository.findById(cId).get();
+
+//        This is because, I have configured "cascade = CascadeType.ALL" in user entity
+        contact.setUsers(null);
+
+/* TODO: Hit and trail validation*/
+
+        System.out.println("Contact: "+ contact.getContactId());
+        this.contactRepository.delete(contact);
+
+        session.setAttribute("message", new Message("Contact deleted successfully...", "success"));
+
+/* TODO: Remove the image of the deleted user*/
+
+        return "redirect:/user/show_contacts/0";
     }
 
 }

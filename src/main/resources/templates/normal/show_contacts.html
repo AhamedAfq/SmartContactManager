@@ -45,7 +45,9 @@
 
                         <td th:text="${contact.phone}">@mdo</td>
                         <td>
-                            <button class="btn btn-danger btn-sm">
+
+<!--  Thymeleaf syntax for passing the dynamioc value to javascript function   -->
+                            <button href="" th:onclick="|deleteContact(${contact.contactId})|" class="btn btn-danger btn-sm">
                                 Delete
                             </button>
                             <button class="btn btn-primary btn-sm">

@@ -7,6 +7,9 @@ import com.ContactManager.entities.User;
 import com.ContactManager.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -99,10 +102,13 @@ public class UserController  {
         return "normal/add_contact_form";
     }
 
-    @GetMapping("/show_contacts")
-    public String showContacts(Model model, Principal principal){
+    @GetMapping("/show_contacts/{page}")
+//    Per page = 5[n]
+//    Current page  = 0 (starts form 0)
+    public String showContacts(@PathVariable("page") Integer page ,Model model, Principal principal){
         model.addAttribute("title", "Show user contacts");
 
+        int recordsPerPage = 5;
 //        To get the userId
         String userName = principal.getName();
         User user = userRepository.getUserByUserName(userName);
@@ -110,8 +116,12 @@ public class UserController  {
 //        Easy way of fetching the list of contacts. But I need to implement the pagination later on hence using repository
 //        List<Contact> contact = user.getContact();
 
-        List<Contact> contacts = this.contactRepository.findContactsByUser(user.getId());
+        Pageable pageable = PageRequest.of(page, recordsPerPage);
+
+        Page<Contact> contacts = this.contactRepository.findContactsByUser(user.getId(), pageable);
         model.addAttribute("contacts", contacts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", contacts.getTotalPages());
 
         return "normal/show_contacts";
     }

@@ -5,7 +5,6 @@ import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
 import com.ContactManager.entities.User;
 import com.ContactManager.helper.Message;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -154,18 +152,26 @@ public class UserController  {
     @GetMapping("/delete/{cId}")
     public String deleteContact(@PathVariable("cId") Integer cId,
                                 Model model,
-                                HttpSession session){
+                                HttpSession session,
+                                Principal principal){
 
         Contact contact =this.contactRepository.findById(cId).get();
 
-//        This is because, I have configured "cascade = CascadeType.ALL" in user entity
-        contact.setUsers(null);
+        User user = this.userRepository.getUserByUserName(principal.getName());
+
+        user.getContact().remove(contact);
+
+        this.userRepository.save(user);
+
+//        This is because, I have configured "cascade = CascadeType.ALL" in user entity.
+//        This method didn't delete the contacts from contacts table
+//        Part of the solution was around user class . Added orphanRemoval and overriding equals func
+//        contact.setUsers(null);
+//        this.contactRepository.delete(contact);
 
 /* TODO: Hit and trail validation*/
 
         System.out.println("Contact: "+ contact.getContactId());
-        this.contactRepository.delete(contact);
-
         session.setAttribute("message", new Message("Contact deleted successfully...", "success"));
 
 /* TODO: Remove the image of the deleted user*/

@@ -25,7 +25,7 @@ public class User {
     @Column(length = 500)
     private String about;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user", orphanRemoval = true)
     private List<Contact> contactList = new ArrayList<>();
 
     public int getId() {
@@ -113,5 +113,10 @@ public class User {
                 ", about='" + about + '\'' +
                 ", contactList=" + contactList +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return this.id == ((Contact)obj).getContactId();
     }
 }

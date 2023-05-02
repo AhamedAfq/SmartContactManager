@@ -75,7 +75,8 @@ public class UserController  {
             if(file.isEmpty()){
 //                File empty message
                 System.out.println("Sry file is empty ...");
-                contact.setImage("contact.svg");
+                contact.setImage("contact.png");
+                System.out.println("Default image is set ...");
             }else{
 //                File not empty then save the user to contacts
                 contact.setImage(file.getOriginalFilename());

@@ -19,8 +19,10 @@
                 th:object="${contact}"
                 enctype="multipart/form-data"
                 method="post"
-                th:action="@{process-update}"
+                th:action="@{/user/process-update}"
                 class="mt-2">
+
+            <input type="hidden" th:value="${contact.contactId}" name="contactId">
 
             <!--  First Name Placeholder -->
             <div class="input-group mt-3">

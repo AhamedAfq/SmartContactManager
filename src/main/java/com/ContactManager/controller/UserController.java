@@ -235,4 +235,10 @@ public class UserController  {
         return "redirect:/user/"+contact.getContactId()+"/contact";
     }
 
+    @GetMapping("/profile")
+    public String yourProfile(Model model){
+        model.addAttribute("title", "Profile page");
+        return "normal/profile";
+    }
+
 }

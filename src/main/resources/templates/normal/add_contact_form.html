@@ -110,6 +110,15 @@
         selector: '#mytextarea'
       });
     </script>
+
+<!--Declared inside section hence jQuery in base page is declared in the head tag-->
+<script>
+    $(document).ready(()=>{
+        $(".item").removeClass("active");
+        $("#add-link").addClass("active");
+    })
+</script>
+
 </section>
 </body>
 </html>

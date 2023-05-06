@@ -3,7 +3,7 @@ body{
 }
 
 .bg-primary{
-    background: #009688 !important
+    background: #009688 !important;
 }
 
 .banner{
@@ -118,4 +118,10 @@ And that button will be visible through Js. That will be added Later */
     padding: 10px;
     border: 1px solid gray;
     display: none;
+}
+
+.active{
+    background: #009688 !important;
+    color: white!important;
+
 }

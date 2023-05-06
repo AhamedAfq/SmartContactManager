@@ -1,5 +1,7 @@
 package com.ContactManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -25,6 +27,7 @@ public class User {
     @Column(length = 500)
     private String about;
 
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user", orphanRemoval = true)
     private List<Contact> contactList = new ArrayList<>();
 
@@ -96,6 +99,8 @@ public class User {
         return contactList;
     }
 
+//    Reference: https://stackoverflow.com/questions/47693110/could-not-write-json-infinite-recursion-stackoverflowerror-nested-exception
+    @JsonBackReference
     public void setContact(List<Contact> contact) {
         this.contactList = contact;
     }

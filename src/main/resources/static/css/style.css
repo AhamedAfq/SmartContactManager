@@ -104,3 +104,18 @@ And that button will be visible through Js. That will be added Later */
    object-fit: cover;
    border-radius: 50%;
 }
+
+
+/*Search bar section*/
+.search-container{
+    position: relative;
+}
+
+.search-result{
+    position: absolute;
+    background: white;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gray;
+    display: none;
+}

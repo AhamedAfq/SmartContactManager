@@ -1,5 +1,8 @@
 package com.ContactManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +22,7 @@ public class Contact {
     private String description;
 
     @ManyToOne
+    @JsonIgnore //To avoid circular dependency. Restricting serialization
     private User user;
 
 
@@ -90,6 +94,8 @@ public class Contact {
         return user;
     }
 
+
+    @JsonBackReference
     public void setUsers(User users) {
         this.user = users;
     }

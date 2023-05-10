@@ -16,12 +16,20 @@
         <div id="login-column" class="col-md-6">
           <div style="height: 240px;" id="login-box" class="col-md-12">
 
+            <!-- message box  -->
+            <div th:if="${session.message}" class="container">
+              <div  class="alert alert-danger my-2 text-center" role="alert">
+                <span th:text="${session.message}"></span>
+              </div>
+              <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+            </div>
+
             <!-- Email Form-->
             <div class="alert alert-success mt-3" role="alert">
               We have sent an OTP to your email
             </div>
 
-            <form th:action="@{/send-otp}" method="post">
+            <form th:action="@{/verify-otp}" method="post">
               <div class="form-group">
                 <input name="otp" required type="text" placeholder="Enter OTP here ..." class="form-control">
                 <div class="container text-center my-3">

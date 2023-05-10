@@ -4,6 +4,7 @@ import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.User;
 import com.ContactManager.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,12 @@ public class ForgotPasswordController {
 
     @Autowired
     private EmailService emailService;
-
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bcrypt;
+
+
     @RequestMapping("/forgot")
     public String openEmailForm(){
         return "forgot_email_form";
@@ -91,6 +95,15 @@ public class ForgotPasswordController {
             return "verify_otp";
         }
     }
-
+    //change password
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("newpassword") String newpassword,HttpSession session)
+    {
+        String email=(String)session.getAttribute("email");
+        User user = this.userRepository.getUserByUserName(email);
+        user.setPassword(this.bcrypt.encode(newpassword));
+        this.userRepository.save(user);
+        return "redirect:/signin?change=password changed successfully..";
+    }
 
 }

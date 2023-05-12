@@ -1,15 +1,22 @@
 package com.ContactManager.controller;
 
 import com.ContactManager.dao.ContactRepository;
+import com.ContactManager.dao.MyOrderRepository;
 import com.ContactManager.dao.UserRepository;
 import com.ContactManager.entities.Contact;
+import com.ContactManager.entities.MyOrder;
 import com.ContactManager.entities.User;
 import com.ContactManager.helper.Message;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -37,6 +45,9 @@ public class UserController  {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private MyOrderRepository myOrderRepository;
 
     @ModelAttribute // Common set of code that has run before all the following handlers (or) method to add common data to teh response
     public void addCommonData(Model model, Principal principal){ // Principal return the unique attribute of the Entity
@@ -274,6 +285,54 @@ public class UserController  {
         }
 
         return "redirect:/user/index";
+    }
+
+    @PostMapping("/create_order")
+    @ResponseBody
+    public String createOrder(@RequestBody Map<String, Object> data, Principal principal) throws RazorpayException {
+        System.out.println("Data entered in the payment form: "+ data);
+
+        int amount = Integer.parseInt(data.get("amount").toString());
+        RazorpayClient razorpayClient =  new RazorpayClient("rzp_test_NHZkMV8FrxkmKB","bPl7tUUAqm7ucRYL7jZD1Sgc");
+
+        JSONObject ob = new JSONObject();
+        ob.put("amount", amount*100);
+        ob.put("currency","INR");
+        ob.put("receipt","txn_235425");
+
+//      Creating new order
+
+        Order order = razorpayClient.orders.create(ob);
+        System.out.println(order);
+
+//        Saving the order in the database
+        MyOrder myOrder = new MyOrder();
+
+        myOrder.setAmount(order.get("amount")+""); // Typecasting to String
+        myOrder.setOrderId(order.get("id"));
+        myOrder.setPaymentId(null);
+        myOrder.setStatus("created");
+        myOrder.setUser(this.userRepository.getUserByUserName(principal.getName()));
+        myOrder.setReceipt(order.get("receipt"));
+
+        this.myOrderRepository.save(myOrder);
+
+        return order.toString();
+    }
+
+    @PostMapping("/update_order")
+    public ResponseEntity<?> updateOrder(@RequestBody Map<String, Object> data){
+
+        MyOrder myOrder = this.myOrderRepository.findByOrderId(data.get("order_id").toString());
+
+        myOrder.setPaymentId(data.get("payment_id").toString());
+        myOrder.setStatus(data.get("status").toString());
+
+        this.myOrderRepository.save(myOrder);
+
+        System.out.println("Update order data: "+ data);
+        return ResponseEntity.ok(Map.of("msg","updates"));
+
     }
 
 }

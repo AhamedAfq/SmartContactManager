@@ -11,7 +11,7 @@
 <section>
     <div class="container">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body my-5">
                 <div class="container text-center">
                     <img style="height: 200px; width:200px" class="my_profile_picture" src="" th:src="@{'/img/contact_logo.png'}" alt="">
                 </div>
@@ -20,6 +20,16 @@
                 Start adding your contacts on cloud ...
             </h1>
             <a th:href="@{/user/add-contact}" class="btn btn-primary btn-block text-uppercase mt-4"> Add new contact</a>
+
+            <hr>
+
+            <!-- Donation Section -->
+            <h3 class="my-3">Donate Us</h3>
+            <input id="payment_field" type="text" class="form-control my-2" placeholder="Enter amount here ...">
+            <div class="container text-center mt-3">
+                <button onclick="paymentStart()" class="btn btn-success">Checkout</button>
+            </div>
+
         </div>
     </div>
     <!--Declared inside section hence jQuery in base page is declared in the head tag-->
